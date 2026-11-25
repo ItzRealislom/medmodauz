@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | MedModa.uz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <!-- ЭКРАН ВХОДА -->
+    <div id="login-screen" class="screen active">
+        <div class="login-box">
+            <h1>MedModa Admin</h1>
+            <p>Введите пароль для доступа</p>
+            <input type="password" id="password-input" placeholder="Пароль">
+            <button onclick="login()">Войти</button>
+            <p id="login-error" class="error-msg"></p>
+        </div>
+    </div>
+
+    <!-- АДМИНКА -->
+    <div id="admin-screen" class="screen">
+        <header>
+            <h1>Управление товарами</h1>
+            <button class="btn-logout" onclick="logout()">Выйти</button>
+        </header>
+
+        <main>
+            <!-- Форма -->
+            <section class="form-section">
+                <h2 id="form-title">Добавить товар</h2>
+                <form id="product-form">
+                    <input type="hidden" id="product-id">
+                    
+                    <div class="input-group">
+                        <label>Название</label>
+                        <input type="text" id="p-name" required placeholder="Халат медицинский...">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Цена (UZS)</label>
+                        <input type="number" id="p-price" required placeholder="125000">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Описание</label>
+                        <textarea id="p-desc" rows="2" placeholder="Описание..."></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-group">
+                            <label>Категория</label>
+                            <select id="p-category">
+                                <option value="robe">Халат</option>
+                                <option value="suit">Костюм</option>
+                                <option value="hat">Шапочка</option>
+                                <option value="shoes">Обувь</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Пол</label>
+                            <select id="p-gender">
+                                <option value="unisex">Унисекс</option>
+                                <option value="female">Женский</option>
+                                <option value="male">Мужской</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Размеры и наличие (JSON)</label>
+                        <input type="text" id="p-sizes" placeholder='{"42": 5, "44": 10, "46": 0}'>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Цвета (через запятую)</label>
+                        <input type="text" id="p-colors" placeholder="Белый, Голубой, Зеленый">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Фото (до 6 шт. JPEG, PNG, WebP)</label>
+                        <input type="file" id="p-photos" multiple accept="image/jpeg, image/png, image/webp">
+                        <small id="photo-error" class="error-msg"></small>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Видео (до 2 шт. MP4, WebM)</label>
+                        <input type="file" id="p-videos" multiple accept="video/mp4, video/webm">
+                        <small id="video-error" class="error-msg"></small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Сохранить</button>
+                        <button type="button" class="btn-secondary" onclick="resetForm()">Отмена</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Список -->
+            <section class="list-section">
+                <h2>Товары</h2>
+                <div id="products-list" class="products-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+:root {
+    --primary: #d35400; --secondary: #8e44ad; --bg: #f4f6f9; --text: #333;
+    --card-bg: #ffffff; --border: #e0e0e0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+body { background: var(--bg); color: var(--text); }
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+/* Вход */
+#login-screen { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #d35400, #8e44ad); }
+.login-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); text-align: center; width: 90%; max-width: 400px; }
+.login-box h1 { color: var(--primary); margin-bottom: 10px; font-size: 28px; }
+.login-box p { color: #666; margin-bottom: 20px; }
+.login-box input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; outline: none; }
+.login-box input:focus { border-color: var(--primary); }
+.login-box button { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
+.error-msg { color: #ff004c; font-size: 13px; margin-top: 10px; min-height: 20px; display: block; }
+
+/* Админка */
+#admin-screen header { background: var(--card-bg); padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+#admin-screen header h1 { font-size: 20px; color: var(--primary); }
+.btn-logout { padding: 10px 20px; background: #ff004c; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+main { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; padding: 30px 5%; max-width: 1400px; margin: 0 auto; }
+
+/* Форма */
+.form-section, .list-section { background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.form-section h2, .list-section h2 { font-size: 18px; margin-bottom: 20px; color: var(--secondary); border-bottom: 2px solid #eee; padding-bottom: 10px; }
+.input-group { margin-bottom: 15px; }
+.input-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: #555; }
+.input-group input, .input-group textarea, .input-group select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; background: #fafafa; }
+.input-group input:focus, .input-group textarea:focus { border-color: var(--primary); background: white; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.form-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-primary { flex: 1; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+.btn-secondary { padding: 15px 20px; background: #eee; color: #666; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+/* Список */
+.products-list { display: flex; flex-direction: column; gap: 15px; }
+.product-item { display: flex; gap: 15px; padding: 15px; border: 1px solid #eee; border-radius: 12px; align-items: center; }
+.product-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; background: #eee; }
+.product-info { flex-grow: 1; }
+.product-info h4 { font-size: 14px; margin-bottom: 5px; }
+.product-info p { font-size: 12px; color: #888; }
+.product-actions { display: flex; gap: 10px; }
+.btn-edit { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; background: #3498db; color: white; }
+.btn-delete { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; background: #ff004c; color: white; }
+
+@media (max-width: 900px) {
+    main { grid-template-columns: 1fr; padding: 15px; }
+    .row { grid-template-columns: 1fr; }
+}

@@ -8,24 +8,20 @@ function generateSizes(stockLevel) {
 }
 
 // --- 2. ТОВАРЫ ---
-const products = [
-    { id: 1, name: "Халат медицинский женский (Классика)", price: 125000, gender: "female", category: "robe", img: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=500&q=80", video: null, sizes: generateSizes(10) },
-    { id: 2, name: "Хирургический костюм мужской", price: 175000, gender: "male", category: "suit", img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80", video: "https://www.w3schools.com/html/mov_bbb.mp4", sizes: generateSizes(8) },
-    { id: 3, name: "Халат медицинский мужской", price: 135000, gender: "male", category: "robe", img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80", video: null, sizes: generateSizes(7) },
-    { id: 4, name: "Костюм женский (Мятный)", price: 170000, gender: "female", category: "suit", img: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=500&q=80", video: null, sizes: generateSizes(5) },
-    { id: 5, name: "Униформа женская (Розовая)", price: 180000, gender: "female", category: "suit", img: "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=500&q=80", video: null, sizes: generateSizes(6) },
-    { id: 6, name: "Халат медицинский синий", price: 120000, gender: "female", category: "robe", img: "images/bluerobe.jpg", video: null, sizes: generateSizes(9) },
-    { id: 7, name: "Медицинский костюм (Бордовый)", price: 185000, gender: "female", category: "suit", img: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&q=80", video: null, sizes: generateSizes(4) },
-    { id: 8, name: "Сабо медицинские (Белые)", price: 150000, gender: "unisex", category: "shoes", img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80", video: null, sizes: { "36": 5, "37": 3, "38": 10, "39": 8, "40": 5, "41": 2 } },
-    { id: 9, name: "Сабо ортопедические (Синие)", price: 160000, gender: "unisex", category: "shoes", img: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=500&q=80", video: null, sizes: { "36": 2, "37": 4, "38": 6, "39": 5, "40": 3, "41": 1 } },
-    { id: 10, name: "Униформа MuzEX Premium", price: 185000, gender: "male", category: "suit", img: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=500&q=80", video: null, sizes: generateSizes(7) },
-    { id: 11, name: "Халат медицинский (Укороченный)", price: 130000, gender: "female", category: "robe", img: "https://images.unsplash.com/photo-1584982751601-97d8cf1221b6?w=500&q=80", video: null, sizes: generateSizes(8) },
-    { id: 12, name: "Шапочка с принтом", price: 70000, gender: "female", category: "hat", img: "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=500&q=80", video: null, sizes: { "One Size": 20 } },
-    { id: 13, name: "Костюм хирургический (Зеленый)", price: 175000, gender: "unisex", category: "suit", img: "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=500&q=80", video: null, sizes: generateSizes(6) },
-    { id: 14, name: "Халат-платье медицинское", price: 140000, gender: "female", category: "robe", img: "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=500&q=80", video: null, sizes: generateSizes(5) },
-    { id: 15, name: "Тёплый халат зимний", price: 190000, gender: "unisex", category: "robe", img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80", video: null, sizes: generateSizes(10) },
-    { id: 16, name: "Медицинская куртка", price: 170000, gender: "male", category: "suit", img: "https://images.unsplash.com/photo-1551076805-e1869033e561?w=500&q=80", video: null, sizes: generateSizes(6) }
-];
+let products = [];
+
+async function loadProductsFromServer() {
+    try {
+        const res = await fetch('/api/products');
+        products = await res.json();
+        renderProducts(products);
+    } catch (err) {
+        console.error('Ошибка загрузки товаров', err);
+    }
+}
+
+// Вызови эту функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', loadProductsFromServer);
 
 // --- 3. UZUM СТАТИСТИКА ---
 const uzumStats = { orders: 348, rating: "4.7", reviews: 79 };
