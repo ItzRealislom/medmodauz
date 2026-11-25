@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedModa.uz — Медицинская одежда европейского уровня в Узбекистане | Халаты, костюмы, форма</title>
+    
+    <!-- SEO МЕТА-ТЕГИ (Русский и Узбекский) -->
+    <meta name="description" content="MedModa.uz — производитель медицинской одежды премиум-класса в Ташкенте. Халаты, костюмы, хирургическая форма, обувь. Оптом и в розницу. Доставка по Узбекистану. 20 лет опыта.">
+    <meta name="keywords" content="медицинская одежда, медицинские халаты, медицинские костюмы, хирургическая форма, одежда для врачей, купить медицинский халат, Ташкент, Узбекистан, medmoda, muzex group, tibbiy kiyimlar, tibbiy xalat, tibbiy kostyum, shifokor kiyimi, tibbiy forma, Toshkent, O'zbekiston, tibbiy kiyim sotib olish, shifokorlar uchun kiyim">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://medmoda.uz/">
+
+    <!-- Open Graph (для соцсетей) -->
+    <meta property="og:title" content="MedModa.uz — Медицинская одежда европейского уровня">
+    <meta property="og:description" content="Премиальная медицинская одежда от производителя. Халаты, костюмы, форма. Доставка по Узбекистану.">
+    <meta property="og:image" content="https://medmoda.uz/og-image.jpg">
+    <meta property="og:url" content="https://medmoda.uz/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MedModa.uz — Медицинская одежда">
+    <meta name="twitter:description" content="Производитель медицинской одежды в Узбекистане. Халаты, костюмы, форма.">
+
+    <!-- Hreflang для мультиязычности -->
+    <link rel="alternate" hreflang="ru" href="https://medmoda.uz/ru/" />
+    <link rel="alternate" hreflang="uz" href="https://medmoda.uz/uz/" />
+    <link rel="alternate" hreflang="en" href="https://medmoda.uz/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://medmoda.uz/" />
+
+    <!-- JSON-LD Микроразметка для Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "MedModa (MuzEX Group)",
+      "image": "https://medmoda.uz/logo.png",
+      "description": "Производитель профессиональной медицинской одежды европейского уровня в Узбекистане. Халаты, костюмы, хирургическая форма, обувь.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "пр. Бунёдкор, 35",
+        "addressLocality": "Ташкент",
+        "addressCountry": "UZ"
+      },
+      "telephone": "+998935400022",
+      "url": "https://medmoda.uz",
+      "priceRange": "$$",
+      "openingHours": "Mo-Sa 09:00-18:00"
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="autumn">
+    <!-- Контейнер для падающих листьев -->
+    <div id="leaves-container"></div>
+
+    <!-- Летние лучи на фоне -->
+    <div class="sun-rays"></div>
+
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">MedModa<span>.uz</span></div>
+        <nav>
+            <a href="#home" data-i18n="nav_home">Главная</a>
+            <a href="#about" data-i18n="nav_about">О нас</a>
+            <a href="#uzum-trust" data-i18n="nav_uzum">На Uzum</a>
+            <a href="#products" data-i18n="nav_products">Каталог</a>
+            <a href="#contacts" data-i18n="nav_contacts">Контакты</a>
+        </nav>
+        <div class="header-right">
+            <!-- Переключатель тем -->
+            <select id="theme-select" onchange="changeTheme()">
+                <option value="autumn">🍁 Осень</option>
+                <option value="winter">❄️ Зима</option>
+                <option value="spring">🌸 Весна</option>
+                <option value="summer">☀️ Лето</option>
+            </select>
+            <select id="lang-select" onchange="changeLanguage()">
+                <option value="ru">РУС</option>
+                <option value="uz">UZB</option>
+                <option value="en">ENG</option>
+            </select>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 <span id="cart-count" class="cart-badge">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Корзина -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+            <h2 data-i18n="cart_title">Ваша корзина</h2>
+            <div id="cart-items" class="cart-items"></div>
+            <div class="cart-footer">
+                <h3 data-i18n="cart_total">Итого: <span id="cart-total-price">0</span> UZS</h3>
+                <button class="btn checkout-btn" onclick="checkoutTelegram()" data-i18n="cart_checkout">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Главный экран (Hero) -->
+    <section id="home" class="hero animate-on-scroll show">
+        <div class="hero-content">
+            <h1 data-i18n="hero_title">Медицинская одежда европейского уровня</h1>
+            <p data-i18n="hero_subtitle">Частная компания «Muzex group» более 20 лет производит профессиональную экипировку премиум-класса.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary" data-i18n="hero_btn">Перейти к покупкам</a>
+                <a href="https://uzum.uz/uz/shop/medmodauz" target="_blank" class="btn btn-outline">Мы на Uzum Market</a>
+            </div>
+        </div>
+        <!-- Плавающие бейджи -->
+        <div class="floating-badge badge-new" data-i18n="badge_new">Новая коллекция 2026</div>
+        <div class="floating-badge badge-uzum">
+            <span style="color: #ffcc00; font-size: 18px;">★</span>
+            <span data-i18n="badge_uzum">Рейтинг на Uzum: 4.7</span>
+        </div>
+    </section>
+
+    <!-- Бегущая строка -->
+    <div class="marquee-wrapper">
+        <div class="marquee">
+            <span>🌟 MEDMODA 🌟 MUZEX GROUP 🌟 ЕВРОПЕЙСКОЕ КАЧЕСТВО С 2005 ГОДА 🌟 MEDMODA 🌟 MUZEX GROUP 🌟</span>
+            <span>🌟 MEDMODA 🌟 MUZEX GROUP 🌟 ЕВРОПЕЙСКОЕ КАЧЕСТВО С 2005 ГОДА 🌟 MEDMODA 🌟 MUZEX GROUP 🌟</span>
+        </div>
+    </div>
+
+    <!-- Интеграция с Uzum (Trust Block) -->
+    <section id="uzum-trust" class="uzum-section animate-on-scroll">
+        <h2 class="section-title" data-i18n="uzum_title">Нам доверяют на Uzum Market</h2>
+        <div class="uzum-grid">
+            <div class="uzum-stat-card">
+                <span class="stat-number" id="uzum-orders">348</span>
+                <span class="stat-label" data-i18n="uzum_orders">Заказов</span>
+            </div>
+            <div class="uzum-stat-card">
+                <span class="stat-number" id="uzum-rating">4.7</span>
+                <span class="stat-label" data-i18n="uzum_rating">Рейтинг (★)</span>
+            </div>
+            <div class="uzum-stat-card">
+                <span class="stat-number" id="uzum-reviews">79</span>
+                <span class="stat-label" data-i18n="uzum_reviews">Отзывов</span>
+            </div>
+        </div>
+        <a href="https://uzum.uz/uz/shop/medmodauz" target="_blank" class="btn btn-uzum">
+            <span data-i18n="uzum_link">Перейти в наш магазин на Uzum</span> →
+        </a>
+    </section>
+
+    <!-- Преимущества -->
+    <section id="advantages" class="advantages-section animate-on-scroll">
+        <h2 class="section-title" data-i18n="adv_title">Почему выбирают нас</h2>
+        <div class="adv-grid">
+            <div class="adv-card">
+                <div class="adv-icon">🇪🇺</div>
+                <h3 data-i18n="adv_1_title">Европейский стиль</h3>
+                <p data-i18n="adv_1_desc">Используем высококачественные материалы и передовые лекала. Наша форма подчеркивает статус.</p>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🥇</div>
+                <h3 data-i18n="adv_2_title">Опыт с 2005 года</h3>
+                <p data-i18n="adv_2_desc">Уже более 20 лет мы являемся одним из крупнейших производителей медицинской одежды в Узбекистане.</p>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🌍</div>
+                <h3 data-i18n="adv_3_title">Международное доверие</h3>
+                <p data-i18n="adv_3_desc">Экспортируем продукцию в Казахстан, Туркменистан, Таджикистан и Кыргызстан.</p>
+            </div>
+            <div class="adv-card">
+                <div class="adv-icon">🧵</div>
+                <h3 data-i18n="adv_4_title">Широкий ассортимент</h3>
+                <p data-i18n="adv_4_desc">Кроме униформы производим: постельное белье, сумки, футболки, жилетки и полотенца.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас и Клиенты -->
+    <section id="about" class="about-section animate-on-scroll">
+        <div class="about-content">
+            <h2 class="section-title" data-i18n="about_title">О компании MuzEX Group</h2>
+            <p id="about-text" data-i18n="about_text">
+                Частная компания <b>«Muzex group»</b> более 20 лет (с 2005 года) является производителем профессиональной высококачественной медицинской одежды европейского уровня. В частности: халаты, костюмы, хирургическая форма, головные уборы, обувь медицинская и др.<br><br>
+                Кроме того, по заказу мы производим постельное бельё, сумки рекламные (тканевые и кожаные с брендом), футболки, жилетки плащевые, полотенца с логотипом фирмы и т.п.<br><br>
+                Мы осуществляем экспорт своей продукции в Казахстан, Туркменистан, Таджикистан и Кыргызстан.
+            </p>
+        </div>
+        
+        <h3 class="clients-title animate-on-scroll" data-i18n="clients_title">Наши крупные клиенты и партнеры:</h3>
+        <div class="clients-marquee-wrapper animate-on-scroll">
+            <div class="clients-marquee">
+                <span>Gedeon Richter • Евро фарм • Quramax medical • ALLMED • Takeda • Nobel farmsanoat • KRKA • Ebewe farma • Корпорация "Arterium" • Rota farm • Evro farm • Oxford • Novartis pharma Services AG • AO "Grindex" • Ever Neuro pharma • Shayana farm • Ganga healthcare • farm ABIDI int • Laxisam • Асклипий (Nika Farm) • Dr.Reddy's • Florence farma • Dishvan фарм • Glenmark • Olain farm • Лекхим • АО "Дори-Дармон" • Нealth line • </span>
+                <span>Gedeon Richter • Евро фарм • Quramax medical • ALLMED • Takeda • Nobel farmsanoat • KRKA • Ebewe farma • Корпорация "Arterium" • Rota farm • Evro farm • Oxford • Novartis pharma Services AG • AO "Grindex" • Ever Neuro pharma • Shayana farm • Ganga healthcare • farm ABIDI int • Laxisam • Асклипий (Nika Farm) • Dr.Reddy's • Florence farma • Dishvan фарм • Glenmark • Olain farm • Лекхим • АО "Дори-Дармон" • Нealth line • </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог товаров -->
+    <section id="products" class="products-section animate-on-scroll">
+        <h2 class="section-title" data-i18n="products_title">Каталог товаров</h2>
+        
+        <!-- Фильтры -->
+        <div class="filters-container">
+            <h3 data-i18n="filter_title">Фильтр:</h3>
+            <select id="filter-gender">
+                <option value="all" data-i18n="filter_gender_all">Все (Пол)</option>
+                <option value="female" data-i18n="filter_gender_female">Женщинам</option>
+                <option value="male" data-i18n="filter_gender_male">Мужчинам</option>
+                <option value="unisex" data-i18n="filter_gender_unisex">Унисекс</option>
+            </select>
+            <select id="filter-category">
+                <option value="all" data-i18n="filter_cat_all">Все категории</option>
+                <option value="robe" data-i18n="filter_cat_robe">Халаты</option>
+                <option value="suit" data-i18n="filter_cat_suit">Костюмы</option>
+                <option value="hat" data-i18n="filter_cat_hat">Шапочки</option>
+                <option value="shoes" data-i18n="filter_cat_shoes">Обувь</option>
+            </select>
+            <!-- НОВЫЙ ФИЛЬТР РАЗМЕРОВ -->
+            <select id="filter-size">
+                <option value="all" data-i18n="filter_size_all">Все размеры</option>
+                <option value="42">42</option>
+                <option value="44">44</option>
+                <option value="46">46</option>
+                <option value="48">48</option>
+                <option value="50">50</option>
+                <option value="52">52</option>
+                <option value="54">54</option>
+                <option value="56">56</option>
+                <option value="58">58</option>
+                <option value="60">60</option>
+            </select>
+            <input type="number" id="filter-min-price" placeholder="Мин. цена (UZS)" data-i18n-placeholder="filter_min">
+            <input type="number" id="filter-max-price" placeholder="Макс. цена (UZS)" data-i18n-placeholder="filter_max">
+            <button class="btn filter-btn" onclick="applyFilters()" data-i18n="filter_btn">Применить</button>
+        </div>
+
+        <div class="products-grid" id="products-container"></div>
+        <p id="no-products-msg" style="display: none; font-size: 20px; font-weight: bold; margin-top: 20px; color: #ff004c;" data-i18n="no_products">Товары не найдены. Измените фильтры.</p>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contacts" class="contacts-section animate-on-scroll">
+        <h2 class="section-title" data-i18n="contacts_title">Свяжитесь с нами</h2>
+        <div class="contacts-box">
+            <p><strong>📍 Адрес:</strong> г.Ташкент, пр.Бунёдкор-35</p>
+            <p><strong>📧 E-mail:</strong> <a href="mailto:muz72@mail.ru">muz72@mail.ru</a></p>
+            <p><strong>🌐 Сайт:</strong> <a href="http://www.medmoda.uz" target="_blank">www.medmoda.uz</a></p>
+            
+            <div class="phones">
+                <a href="tel:+998935400022">📞 (+998 93) 540-00-22</a>
+                <a href="tel:+998981276655">📞 (+998 98) 127-66-55</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 MedModa (MuzEX group). Все права защищены. Работаем с 2005 года.</p>
+    </footer>
+
+    <!-- Плавающая кнопка Telegram -->
+    <a href="https://t.me/Azamjanovna_Fotima" target="_blank" class="floating-tg">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
