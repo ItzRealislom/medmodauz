@@ -8,17 +8,16 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const JWT_SECRET = 'super_secret_key_medmoda_2026'; // В будущем вынеси в переменные окружения Render
+const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_key_medmoda_2026'; 
 
-// Пароль хэшируется при запуске сервера
-const ADMIN_PASSWORD_HASH = bcrypt.hashSync('islam162011', 10);
+// ПАРОЛЬ ИЗМЕНЕН НА islom2011
+const ADMIN_PASSWORD_HASH = bcrypt.hashSync('islom2011', 10);
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'))); // Раздает фронтенд
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Раздает картинки
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Создаем папки, если их нет
 const dataDir = path.join(__dirname, 'data');
 const uploadsDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
@@ -27,7 +26,6 @@ if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir);
 const productsFile = path.join(dataDir, 'products.json');
 if (!fs.existsSync(productsFile)) fs.writeFileSync(productsFile, '[]');
 
-// --- НАСТРОЙКА ЗАГРУЗКИ ФАЙЛОВ (Multer) ---
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, uploadsDir),
     filename: (req, file, cb) => {
@@ -37,7 +35,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    // Идеальные форматы как в Узуме
     const allowedImages = ['image/jpeg', 'image/png', 'image/webp'];
     const allowedVideos = ['video/mp4', 'video/webm'];
     
@@ -53,10 +50,9 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ 
     storage: storage,
     fileFilter: fileFilter,
-    limits: { fileSize: 10 * 1024 * 1024 } // Лимит 10 МБ на файл
+    limits: { fileSize: 10 * 1024 * 1024 }
 });
 
-// --- ЗАЩИТА (Middleware) ---
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
@@ -91,7 +87,6 @@ app.get('/api/products', (req, res) => {
 app.post('/api/products', authenticateToken, upload.fields([{ name: 'photos', maxCount: 6 }, { name: 'videos', maxCount: 2 }]), (req, res) => {
     try {
         const products = JSON.parse(fs.readFileSync(productsFile, 'utf8'));
-        
         const photos = req.files['photos'] ? req.files['photos'].map(f => `/uploads/${f.filename}`) : [];
         const videos = req.files['videos'] ? req.files['videos'].map(f => `/uploads/${f.filename}`) : [];
         
@@ -156,6 +151,11 @@ app.delete('/api/products/:id', authenticateToken, (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+});
+
+// Защита от несуществующих API маршрутов (чтобы фронтенд не ломался)
+app.use('/api', (req, res) => {
+    res.status(404).json({ error: 'API маршрут не найден' });
 });
 
 app.listen(PORT, () => {

@@ -8,6 +8,11 @@ async function login() {
     const password = document.getElementById('password-input').value;
     const errorEl = document.getElementById('login-error');
     
+    if (!password) {
+        errorEl.textContent = 'Введите пароль!';
+        return;
+    }
+
     try {
         const res = await fetch(`${API_URL}/login`, {
             method: 'POST',
@@ -15,16 +20,25 @@ async function login() {
             body: JSON.stringify({ password })
         });
         
-        const data = await res.json();
+        // Сначала получаем текст ответа (чтобы проверить, не HTML ли это)
+        const text = await res.text();
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            // Если это не JSON, значит сервер вернул HTML (ошибку 404, 500 и т.д.)
+            throw new Error('Сервер вернул неверный ответ. Проверьте, запущен ли Node.js (node server.js)');
+        }
+        
         if (res.ok) {
             token = data.token;
             localStorage.setItem('adminToken', token);
             showAdminScreen();
         } else {
-            errorEl.textContent = data.error || 'Ошибка входа';
+            errorEl.textContent = data.error || 'Неверный пароль';
         }
     } catch (err) {
-        errorEl.textContent = 'Ошибка сервера';
+        errorEl.textContent = err.message || 'Сервер не отвечает. Убедитесь, что Node.js запущен.';
     }
 }
 
@@ -34,6 +48,7 @@ function logout() {
     document.getElementById('admin-screen').classList.remove('active');
     document.getElementById('login-screen').classList.add('active');
     document.getElementById('password-input').value = '';
+    document.getElementById('login-error').textContent = '';
 }
 
 function showAdminScreen() {
@@ -42,7 +57,7 @@ function showAdminScreen() {
     loadProducts();
 }
 
-// --- ВАЛИДАЦИЯ ФАЙЛОВ (КАК В УЗУМЕ) ---
+// --- ВАЛИДАЦИЯ ФАЙЛОВ ---
 document.getElementById('p-photos').addEventListener('change', function(e) {
     const files = e.target.files;
     const errorEl = document.getElementById('photo-error');
@@ -66,13 +81,15 @@ document.getElementById('p-videos').addEventListener('change', function(e) {
     }
 });
 
-// --- CRUD (Создание, Чтение, Обновление, Удаление) ---
+// --- CRUD ---
 async function loadProducts() {
     try {
         const res = await fetch(`${API_URL}/products`);
         const products = await res.json();
         renderProductList(products);
-    } catch (err) { console.error(err); }
+    } catch (err) { 
+        console.error('Ошибка загрузки:', err); 
+    }
 }
 
 function renderProductList(products) {
@@ -112,7 +129,7 @@ document.getElementById('product-form').addEventListener('submit', async (e) => 
     try {
         const sizes = JSON.parse(document.getElementById('p-sizes').value || '{}');
         formData.append('sizes', JSON.stringify(sizes));
-    } catch (e) { alert('Ошибка в JSON размерах!'); return; }
+    } catch (e) { alert('Ошибка в JSON размерах! Пример: {"42": 5, "44": 10}'); return; }
     
     const colors = document.getElementById('p-colors').value.split(',').map(c => c.trim()).filter(c => c);
     formData.append('colors', JSON.stringify(colors));
@@ -139,9 +156,9 @@ document.getElementById('product-form').addEventListener('submit', async (e) => 
             loadProducts();
         } else {
             const data = await res.json();
-            alert(data.error || 'Ошибка');
+            alert(data.error || 'Ошибка сохранения');
         }
-    } catch (err) { alert('Ошибка сервера'); }
+    } catch (err) { alert('Ошибка сервера при сохранении'); }
 });
 
 async function editProduct(id) {
